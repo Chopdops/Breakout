@@ -7,3 +7,5 @@ In order to run the code you will need:
 glew
 glfw
 glm
+
+The only bug in the game is that the ball sometimes disappears randomly. You can press R to make it spawn in the middle again.
