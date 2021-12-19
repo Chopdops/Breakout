@@ -8,4 +8,4 @@ glew
 glfw
 glm
 
-The only bug in the game is that the ball sometimes disappears randomly. You can press R to make it spawn in the middle again.
+Use a and d on your keyboard to move your paddle. 
