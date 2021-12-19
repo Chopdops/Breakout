@@ -6,7 +6,7 @@ Paddle::Paddle()
 	m_MovementSpeed = 1.0f;
 }
 
-Paddle::Paddle(std::shared_ptr<Mesh> mesh, glm::vec3 position, glm::vec3 scale, GLuint modelLocation, GLfloat movementSpeed, GLint bufferHeight, GLint bufferWidth, GLuint shaderID, glm::vec4 color, 
+Paddle::Paddle(std::shared_ptr<Mesh> mesh, glm::vec2 position, glm::vec2 scale, GLuint modelLocation, GLfloat movementSpeed, GLint bufferHeight, GLint bufferWidth, GLuint shaderID, glm::vec4 color, 
 	GLfloat maxSpeed) :
 	Object(mesh, position, scale, modelLocation, shaderID, color)
 {
@@ -28,12 +28,12 @@ void Paddle::KeyMove(bool* keys, GLfloat& deltaTime, GLenum& keyUp, GLenum& keyD
 
 	if (keys[keyUp])
 	{
-		m_Position += glm::vec3(-1.0f, 0.0f, 0.0f) * m_Velocity;
+		m_Position += glm::vec2(-1.0f, 0.0f) * m_Velocity;
 	}
 
 	if (keys[keyDown])
 	{
-		m_Position += glm::vec3(1.0f, 0.0f, 0.0f) * m_Velocity;
+		m_Position += glm::vec2(1.0f, 0.0f) * m_Velocity;
 	}
 
 	float barrierRatio = 1.75f;

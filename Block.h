@@ -7,7 +7,7 @@ class Block :
 {
 public:
     Block();
-    Block(std::shared_ptr<Mesh> mesh, glm::vec3 position, glm::vec3 scale, GLuint modelLocation, GLuint shaderID, glm::vec4 color, bool render);
+    Block(std::shared_ptr<Mesh> mesh, glm::vec2 position, glm::vec2 scale, GLuint modelLocation, GLuint shaderID, glm::vec4 color, bool render);
 
     void Update(std::shared_ptr<Ball> ball, GLfloat& deltaTime, unsigned int& numOfBlocks);
 

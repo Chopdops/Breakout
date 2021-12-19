@@ -19,7 +19,7 @@ private:
 
 public:
 	Paddle();
-	Paddle(std::shared_ptr<Mesh> mesh, glm::vec3 position, glm::vec3 scale, GLuint modelLocation, GLfloat movementSpeed, GLint bufferHeight, GLint bufferWidth, GLuint shaderID, glm::vec4 color, GLfloat maxSpeed);
+	Paddle(std::shared_ptr<Mesh> mesh, glm::vec2 position, glm::vec2 scale, GLuint modelLocation, GLfloat movementSpeed, GLint bufferHeight, GLint bufferWidth, GLuint shaderID, glm::vec4 color, GLfloat maxSpeed);
 
 	void Reset();
 

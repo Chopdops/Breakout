@@ -12,13 +12,13 @@ class Ball :
 {
 public:
     Ball();
-    Ball(std::shared_ptr<Mesh> mesh, glm::vec3 position, glm::vec3 scale, GLuint modelLocation, int bufferWidth, int bufferHeight, int movementSpeed, GLuint shaderID, glm::vec4 color, 
+    Ball(std::shared_ptr<Mesh> mesh, glm::vec2 position, glm::vec2 scale, GLuint modelLocation, int bufferWidth, int bufferHeight, int movementSpeed, GLuint shaderID, glm::vec4 color, 
         int maxSpeed);
 
     void Start();
     void Update(std::shared_ptr<Paddle> paddle, GLfloat& deltaTime, unsigned int& lives);
 
-    void ReverseDirection(GLfloat& deltaTime, glm::vec3 direction);
+    void ReverseDirection(GLfloat& deltaTime, glm::vec2 direction);
 
     ~Ball();
 
@@ -33,7 +33,7 @@ private:
 
     unsigned int m_RainbowColor;
 
-    glm::vec3 m_Direction;
+    glm::vec2 m_Direction;
 
     void SetRandomBounce();
 };

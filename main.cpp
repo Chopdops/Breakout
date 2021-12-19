@@ -50,7 +50,7 @@ GLenum keyDown = GLFW_KEY_D;
 
 int main()
 {
-	float width = 1024;
+	float width = 1000;
 	float height = 720;
 
 	// Window
@@ -79,18 +79,18 @@ int main()
 	float positionRatio = 2.15f;
 	float scaleRatio = 5.0f;
 
-	paddle = std::shared_ptr<Paddle>(new Paddle(rect, glm::vec3(0.0f, -height / positionRatio, 0.0f), glm::vec3(height / scaleRatio, 20.0f, 0.0f), uModel, 300.0f, window.GetBufferHeight(), window.GetBufferWidth(),
-		shader.GetShaderID(), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 280.0f));;
-	ball = std::shared_ptr<Ball>(new Ball(rect, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(15.0f, 15.0f, 0.0f), uModel, window.GetBufferWidth(), window.GetBufferHeight(), 220.0f,
-		shader.GetShaderID(), glm::vec4(0.3f, 0.3f, 0.3f, 1.0f), 310.0f));
+	paddle = std::shared_ptr<Paddle>(new Paddle(rect, glm::vec2(0.0f, -height / positionRatio), glm::vec2(height / scaleRatio, 20.0f), uModel, 300.0f, window.GetBufferHeight(), window.GetBufferWidth(),
+		shader.GetShaderID(), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 540.0f));;
+	ball = std::shared_ptr<Ball>(new Ball(rect, glm::vec2(0.0f, 0.0f), glm::vec2(15.0f, 15.0f), uModel, window.GetBufferWidth(), window.GetBufferHeight(), 220.0f,
+		shader.GetShaderID(), glm::vec4(0.3f, 0.3f, 0.3f, 1.0f), 600.0f));
 
-	std::shared_ptr<Block> block(new Block(rect, glm::vec3(0.0f, 300.0f, 0.0f), glm::vec3(50.0f, 25.0f, 0.0f), uModel, shader.GetShaderID(), glm::vec4(1.0f, 0.0f, 0.1f, 1.0f), true));
-	std::shared_ptr<Block> block2(new Block(rect, glm::vec3(0.0f, 275.0f, 0.0f), glm::vec3(50.0f, 25.0f, 0.0f), uModel, shader.GetShaderID(), glm::vec4(0.75f, 0.0f, 0.2f, 1.0f), true));
-	std::shared_ptr<Block> block3(new Block(rect, glm::vec3(0.0f, 250.0f, 0.0f), glm::vec3(50.0f, 25.0f, 0.0f), uModel, shader.GetShaderID(), glm::vec4(0.5f, 0.0f, 0.3f, 1.0f), true));
+	std::shared_ptr<Block> block(new Block(rect,  glm::vec2(0.0f, 300.0f), glm::vec2(50.0f, 25.0f), uModel, shader.GetShaderID(), glm::vec4(1.0f, 0.0f, 0.1f, 1.0f), true));
+	std::shared_ptr<Block> block2(new Block(rect, glm::vec2(0.0f, 275.0f), glm::vec2(50.0f, 25.0f), uModel, shader.GetShaderID(), glm::vec4(0.75f, 0.0f, 0.2f, 1.0f), true));
+	std::shared_ptr<Block> block3(new Block(rect, glm::vec2(0.0f, 250.0f), glm::vec2(50.0f, 25.0f), uModel, shader.GetShaderID(), glm::vec4(0.5f, 0.0f, 0.3f, 1.0f), true));
 
-	std::shared_ptr<Block> block4(new Block(rect, glm::vec3(0.0f, 225.0f, 0.0f), glm::vec3(50.0f, 25.0f, 0.0f), uModel, shader.GetShaderID(), glm::vec4(0.05f, 1.0f, 0.05f, 1.0f), true));
-	std::shared_ptr<Block> block5(new Block(rect, glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(50.0f, 25.0f, 0.0f), uModel, shader.GetShaderID(), glm::vec4(0.1f, 0.75f, 0.1f, 1.0f), true));
-	std::shared_ptr<Block> block6(new Block(rect, glm::vec3(0.0f, 175.0f, 0.0f), glm::vec3(50.0f, 25.0f, 0.0f), uModel, shader.GetShaderID(), glm::vec4(0.15f, 0.5f, 0.15f, 1.0f), true));
+	std::shared_ptr<Block> block4(new Block(rect, glm::vec2(0.0f, 225.0f), glm::vec2(50.0f, 25.0f), uModel, shader.GetShaderID(), glm::vec4(0.05f, 1.0f, 0.05f, 1.0f), true));
+	std::shared_ptr<Block> block5(new Block(rect, glm::vec2(0.0f, 200.0f), glm::vec2(50.0f, 25.0f), uModel, shader.GetShaderID(), glm::vec4(0.1f, 0.75f, 0.1f, 1.0f), true));
+	std::shared_ptr<Block> block6(new Block(rect, glm::vec2(0.0f, 175.0f), glm::vec2(50.0f, 25.0f), uModel, shader.GetShaderID(), glm::vec4(0.15f, 0.5f, 0.15f, 1.0f), true));
 
 	std::cout << "You have " << lives << " lives." << std::endl;
 	std::cout << "Level " << level + 1 << "." << std::endl;
@@ -101,21 +101,21 @@ int main()
 	window.GetKeys()[keyDown] = false;
 	if (level == 0)
 	{
-		for (float i = (-window.GetBufferWidth() / 2) - block->GetScale().x; i < window.GetBufferWidth() / 2; i += block->GetScale().x)
+		for (float i = (-window.GetBufferWidth() / 2) + (block->GetScale().x / 2); i < (window.GetBufferWidth() / 2); i += block->GetScale().x)
 		{
 			blocks.push_back(std::shared_ptr<Block>(new Block(*block)));
 			blocks.back()->Move(glm::vec3(i, 0.0f, 0.0f));
 			numOfBlocks++;
 		}
 
-		for (float i = (-window.GetBufferWidth() / 2) - block2->GetScale().x; i < window.GetBufferWidth() / 2; i += block2->GetScale().x)
+		for (float i = (-window.GetBufferWidth() / 2) + (block2->GetScale().x / 2); i < window.GetBufferWidth() / 2; i += block2->GetScale().x)
 		{
 			blocks.push_back(std::shared_ptr<Block>(new Block(*block2)));
 			blocks.back()->Move(glm::vec3(i, 0.0f, 0.0f));
 			numOfBlocks++;
 		}
 
-		for (float i = (-window.GetBufferWidth() / 2) - block3->GetScale().x; i < window.GetBufferWidth() / 2; i += block3->GetScale().x)
+		for (float i = (-window.GetBufferWidth() / 2) + (block3->GetScale().x / 2); i < window.GetBufferWidth() / 2; i += block3->GetScale().x)
 		{
 			blocks.push_back(std::shared_ptr<Block>(new Block(*block3)));
 			blocks.back()->Move(glm::vec3(i, 0.0f, 0.0f));
@@ -140,9 +140,9 @@ int main()
 				std::cout << "Level " << level + 1 << "." << std::endl;
 				lives++;
 				if (lives == 1)
-					std::cout << "You have " << lives << "life." << std::endl;
+					std::cout << "You have " << lives << " life." << std::endl;
 				else
-					std::cout << "You have " << lives << "lives." << std::endl;
+					std::cout << "You have " << lives << " lives." << std::endl;
 			}
 		}
 	}
@@ -150,44 +150,45 @@ int main()
 	window.GetKeys()[GLFW_KEY_R] = false;
 	window.GetKeys()[keyUp] = false;
 	window.GetKeys()[keyDown] = false;
+
 	if (level == 1)
 	{
-		for (float i = (-window.GetBufferWidth() / 2) - block->GetScale().x; i < window.GetBufferWidth() / 2; i += block->GetScale().x)
+		for (float i = (-window.GetBufferWidth() / 2) + (block->GetScale().x / 2); i < window.GetBufferWidth() / 2; i += block->GetScale().x)
 		{
 			blocks.push_back(std::shared_ptr<Block>(new Block(*block)));
 			blocks.back()->Move(glm::vec3(i, 0.0f, 0.0f));
 			numOfBlocks++;
 		}
 
-		for (float i = (-window.GetBufferWidth() / 2) - block2->GetScale().x; i < window.GetBufferWidth() / 2; i += block2->GetScale().x)
+		for (float i = (-window.GetBufferWidth() / 2) + (block2->GetScale().x / 2); i < window.GetBufferWidth() / 2; i += block2->GetScale().x)
 		{
 			blocks.push_back(std::shared_ptr<Block>(new Block(*block2)));
 			blocks.back()->Move(glm::vec3(i, 0.0f, 0.0f));
 			numOfBlocks++;
 		}
 
-		for (float i = (-window.GetBufferWidth() / 2) - block3->GetScale().x; i < window.GetBufferWidth() / 2; i += block3->GetScale().x)
+		for (float i = (-window.GetBufferWidth() / 2) + (block3->GetScale().x / 2); i < window.GetBufferWidth() / 2; i += block3->GetScale().x)
 		{
 			blocks.push_back(std::shared_ptr<Block>(new Block(*block3)));
 			blocks.back()->Move(glm::vec3(i, 0.0f, 0.0f));
 			numOfBlocks++;
 		}
 
-		for (float i = (-window.GetBufferWidth() / 2) - block4->GetScale().x; i < window.GetBufferWidth() / 2; i += block4->GetScale().x)
+		for (float i = (-window.GetBufferWidth() / 2) + (block4->GetScale().x / 2); i < window.GetBufferWidth() / 2; i += block4->GetScale().x)
 		{
 			blocks.push_back(std::shared_ptr<Block>(new Block(*block4)));
 			blocks.back()->Move(glm::vec3(i, 0.0f, 0.0f));
 			numOfBlocks++;
 		}
 
-		for (float i = (-window.GetBufferWidth() / 2) - block5->GetScale().x; i < window.GetBufferWidth() / 2; i += block5->GetScale().x)
+		for (float i = (-window.GetBufferWidth() / 2) + (block5->GetScale().x / 2); i < window.GetBufferWidth() / 2; i += block5->GetScale().x)
 		{
 			blocks.push_back(std::shared_ptr<Block>(new Block(*block5)));
 			blocks.back()->Move(glm::vec3(i, 0.0f, 0.0f));
 			numOfBlocks++;
 		}
 
-		for (float i = (-window.GetBufferWidth() / 2) - block6->GetScale().x; i < window.GetBufferWidth() / 2; i += block6->GetScale().x)
+		for (float i = (-window.GetBufferWidth() / 2) + (block6->GetScale().x / 2); i < window.GetBufferWidth() / 2; i += block6->GetScale().x)
 		{
 			blocks.push_back(std::shared_ptr<Block>(new Block(*block6)));
 			blocks.back()->Move(glm::vec3(i, 0.0f, 0.0f));
@@ -227,11 +228,11 @@ void playLevel()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	if (window.GetKeys()[GLFW_KEY_R])
-	{
-		ball->Start();
-		paddle->Reset();
-	}
+	//if (window.GetKeys()[GLFW_KEY_R])
+	//{
+	//	ball->Start();
+	//	paddle->Reset();
+	//}
 
 	ball->Update(paddle, deltaTime, lives);
 	ball->Render();

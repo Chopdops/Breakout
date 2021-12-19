@@ -11,7 +11,7 @@ Ball::Ball() : Object()
 	m_MaxBounce = 0;
 }
 
-Ball::Ball(std::shared_ptr<Mesh> mesh, glm::vec3 position, glm::vec3 scale, GLuint modelLocation, int bufferWidth, int bufferHeight, int movementSpeed, GLuint shaderID, glm::vec4 color, int maxSpeed)
+Ball::Ball(std::shared_ptr<Mesh> mesh, glm::vec2 position, glm::vec2 scale, GLuint modelLocation, int bufferWidth, int bufferHeight, int movementSpeed, GLuint shaderID, glm::vec4 color, int maxSpeed)
 	: Object(mesh, position, scale, modelLocation, shaderID, color)
 {
 	m_BufferWidth = bufferWidth;
@@ -42,9 +42,9 @@ void Ball::Start()
 
 	m_MovementSpeed = m_InitialMovementSpeed;
 
-	m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
+	m_Position = glm::vec2(0.0f, 0.0f);
 
-	m_Direction = glm::vec3(randNum1, randNum2, 0.0f);
+	m_Direction = glm::vec2(randNum1, randNum2);
 
 	if (abs(m_Direction.y) > abs(m_Direction.x))
 	{
@@ -55,8 +55,8 @@ void Ball::Start()
 
 	m_Direction = glm::normalize(m_Direction);
 
-	m_Bounce = m_InitialMovementSpeed * 20;
-	m_MaxBounce = m_MaxSpeed * 20;
+	m_Bounce = m_InitialMovementSpeed * 2;
+	m_MaxBounce = m_MaxSpeed * 2;
 
 	m_RainbowColor = 0;
 }
@@ -65,14 +65,14 @@ void Ball::SetRandomBounce()
 {
 	// Bounces off in random direction
 	if (m_Direction.x > 0)
-		m_Direction.x += 100.0f / (rand() % 100) + 3.0f;
+		m_Direction.x += (100.0f / (rand() % 100)) + 3.0f;
 	if (m_Direction.x < 0)
-		m_Direction.x -= 100.0f / (rand() % 100) + 3.0f;
+		m_Direction.x -= (100.0f / (rand() % 100)) + 3.0f;
 
 	if (m_Direction.y > 0)
-		m_Direction.y += 100.0f / (rand() % 100) + 3.0f;
+		m_Direction.y += (100.0f / (rand() % 100)) + 3.0f;
 	if (m_Direction.y < 0)
-		m_Direction.y -= 100.0f / (rand() % 100) + 3.0f;
+		m_Direction.y -= (100.0f / (rand() % 100)) + 3.0f;
 
 	// Add a little bit of speed to make more difficult to return
 	m_MovementSpeed += 20;
@@ -80,7 +80,7 @@ void Ball::SetRandomBounce()
 	if (m_MovementSpeed > m_MaxSpeed)
 		m_MovementSpeed = m_MaxSpeed;
 	 
-	m_Bounce += 400;
+	m_Bounce += 40;
 
 	if (m_Bounce > m_MaxBounce)
 		m_Bounce = m_MaxBounce;
@@ -90,7 +90,12 @@ void Ball::Update(std::shared_ptr<Paddle> paddle, GLfloat& deltaTime, unsigned i
 {
 	// Move position by direction
 	m_Direction = glm::normalize(m_Direction);
+
+	if (m_Direction.x == 0.0f || m_Direction.y == 0.0f)
+		m_Direction = glm::vec2(0.9f, 0.4f);
+
 	m_Position += m_Direction * deltaTime * (float) m_MovementSpeed;
+
 
 	// If it hits walls
 	if (m_Position.x + (m_Scale.x / 2) > m_BufferWidth / 2)
@@ -179,7 +184,7 @@ void Ball::Update(std::shared_ptr<Paddle> paddle, GLfloat& deltaTime, unsigned i
 	}
 }
 
-void Ball::ReverseDirection(GLfloat& deltaTime, glm::vec3 direction)
+void Ball::ReverseDirection(GLfloat& deltaTime, glm::vec2 direction)
 {
 	m_Direction *= direction;
 

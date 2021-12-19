@@ -5,7 +5,7 @@ Block::Block()
 {
 }
 
-Block::Block(std::shared_ptr<Mesh> mesh, glm::vec3 position, glm::vec3 scale, GLuint modelLocation, GLuint shaderID, glm::vec4 color, bool render)
+Block::Block(std::shared_ptr<Mesh> mesh, glm::vec2 position, glm::vec2 scale, GLuint modelLocation, GLuint shaderID, glm::vec4 color, bool render)
 	: Object(mesh, position, scale, modelLocation, shaderID, color)
 {
 	m_RenderVal = render;
@@ -24,10 +24,10 @@ void Block::Update(std::shared_ptr<Ball> ball, GLfloat& deltaTime, unsigned int&
 
 		if (ball->GetPosition().x > m_Position.x + (m_Scale.x / 2) || ball->GetPosition().x < m_Position.x - (m_Scale.x / 2))
 		{
-			ball->ReverseDirection(deltaTime, glm::vec3(-1.0f, 1.0f, 0.0f));
+			ball->ReverseDirection(deltaTime, glm::vec2(-1.0f, 1.0f));
 			return;
 		}
 
-		ball->ReverseDirection(deltaTime, glm::vec3(1.0f, -1.0f, 0.0f));
+		ball->ReverseDirection(deltaTime, glm::vec2(1.0f, -1.0f));
 	}
 }
